@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://dqiq8pv4h3270"]
+
+[ext_resource type="Texture2D" uid="uid://cynyimqy8341w" path="res://art/still_back.png" id="1_hqtel"]
+[ext_resource type="Script" uid="uid://bvpkdd71pjyug" path="res://player.gd" id="1_sweqy"]
+[ext_resource type="Texture2D" uid="uid://w4qi1mm2phqy" path="res://art/still_right.png" id="3_2hs0m"]
+[ext_resource type="Texture2D" uid="uid://c52dhd15pbprb" path="res://art/still_front.png" id="4_1jxqw"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dw050"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_1jxqw")
+}],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_2hs0m")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_hqtel")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b26j0"]
+size = Vector2(5, 10)
+
+[node name="Player" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_sweqy")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_dw050")
+animation = &"up"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_b26j0")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="TrainTimeout" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="TrainTimeout" to="." method="_on_train_timeout_timeout"]

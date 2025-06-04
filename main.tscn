@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://dem5i1bwbxlk3"]
+
+[ext_resource type="Script" uid="uid://clgr1hwvssypy" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://dqiq8pv4h3270" path="res://player.tscn" id="2_h2yge"]
+[ext_resource type="Texture2D" uid="uid://bwp6hcb8s8m35" path="res://art/FINALtestbackground.png" id="2_lquwl"]
+[ext_resource type="PackedScene" uid="uid://bk5rb8acl487u" path="res://train.tscn" id="3_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://dsdwoyo0h8wcw" path="res://hud.tscn" id="4_1bvp3"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_ig7tw")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_lquwl")
+
+[node name="ScoreTimer" type="Timer" parent="."]
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(409, 951)
+
+[node name="Player" parent="." instance=ExtResource("2_h2yge")]
+position = Vector2(408, 942)
+
+[node name="HUD" parent="." instance=ExtResource("4_1bvp3")]
+
+[node name="train" parent="." instance=ExtResource("3_1bvp3")]
+position = Vector2(366, 460)
+
+[node name="bus" parent="." instance=ExtResource("3_1bvp3")]
+position = Vector2(62, 761)
+
+[node name="bus2" parent="." instance=ExtResource("3_1bvp3")]
+position = Vector2(97, 862)
+
+[node name="bus3" parent="." instance=ExtResource("3_1bvp3")]
+position = Vector2(329, 187)
+
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
+[connection signal="start_game" from="HUD" to="." method="_on_hud_start_game"]
+[connection signal="departing" from="train" to="." method="_on_train_departing"]
+[connection signal="passenger_off" from="train" to="." method="_on_train_passenger_off"]
+[connection signal="passenger_on" from="train" to="." method="_on_train_passenger_on"]
+[connection signal="departing" from="bus" to="." method="_on_bus_departing"]
+[connection signal="passenger_off" from="bus" to="." method="_on_bus_passenger_off"]
+[connection signal="passenger_on" from="bus" to="." method="_on_bus_passenger_on"]
+[connection signal="departing" from="bus2" to="." method="_on_bus_2_departing"]
+[connection signal="passenger_off" from="bus2" to="." method="_on_bus_2_passenger_off"]
+[connection signal="passenger_on" from="bus2" to="." method="_on_bus_2_passenger_on"]
+[connection signal="departing" from="bus3" to="." method="_on_bus_3_departing"]
+[connection signal="passenger_off" from="bus3" to="." method="_on_bus_3_passenger_off"]
+[connection signal="passenger_on" from="bus3" to="." method="_on_bus_3_passenger_on"]
